@@ -8,7 +8,7 @@ Original file is located at
 """
 
 # ===============================================
-# 📘 Step 1: Import Required Libraries
+#  Step 1: Import Required Libraries
 # ===============================================
 import pandas as pd
 import numpy as np
@@ -21,44 +21,44 @@ from google.colab import files
 pd.set_option('display.max_columns', None)
 
 # ===============================================
-# 📂 Step 2: Upload Dataset
+#  Step 2: Upload Dataset
 # ===============================================
-print("👉 Please upload your dataset (CSV file)")
+print(" Please upload your dataset (CSV file)")
 uploaded = files.upload()
 
 for filename in uploaded.keys():
     dataset_path = filename
-    print(f"✅ File '{filename}' uploaded successfully!")
+    print(f" File '{filename}' uploaded successfully!")
 
 # ===============================================
-# 📊 Step 3: Load Dataset
+#  Step 3: Load Dataset
 # ===============================================
 df = pd.read_csv(dataset_path)
-print("\n📈 Dataset Loaded Successfully!")
-print(f"➡️ Total Rows: {df.shape[0]}, Columns: {df.shape[1]}")
-print("\n🔹 Column Names:\n", df.columns.tolist())
+print("\n Dataset Loaded Successfully!")
+print(f" Total Rows: {df.shape[0]}, Columns: {df.shape[1]}")
+print("\n Column Names:\n", df.columns.tolist())
 
 # Display first few rows
 display(df.head())
 
 # ===============================================
-# 🔍 Step 4: Basic Dataset Info
+#  Step 4: Basic Dataset Info
 # ===============================================
-print("\n📋 Dataset Info:")
+print("\n Dataset Info:")
 df.info()
 
-print("\n📊 Summary Statistics (Numerical):")
+print("\n Summary Statistics (Numerical):")
 display(df.describe())
 
-print("\n📊 Summary Statistics (Categorical):")
+print("\n Summary Statistics (Categorical):")
 display(df.describe(include=['object']))
 
 # ===============================================
-# 🧹 Step 5: Check for Missing & Duplicate Values
+#  Step 5: Check for Missing & Duplicate Values
 # ===============================================
-print("\n🔍 Missing Values Check:")
+print("\n Missing Values Check:")
 missing_values = df.isnull().sum()
-print(missing_values[missing_values > 0] if missing_values.sum() > 0 else "✅ No Missing Values Found")
+print(missing_values[missing_values > 0] if missing_values.sum() > 0 else " No Missing Values Found")
 
 # Handle missing values
 num_cols = df.select_dtypes(include=['int64', 'float64']).columns
@@ -70,20 +70,20 @@ for col in num_cols:
 for col in cat_cols:
     df[col].fillna(df[col].mode()[0], inplace=True)
 
-print("\n✅ Missing Values Filled Successfully!")
+print("\n Missing Values Filled Successfully!")
 
 # Remove duplicates
 duplicates = df.duplicated().sum()
 if duplicates > 0:
     df.drop_duplicates(inplace=True)
-    print(f"🧾 Removed {duplicates} duplicate rows.")
+    print(f" Removed {duplicates} duplicate rows.")
 else:
-    print("✅ No Duplicate Rows Found.")
+    print(" No Duplicate Rows Found.")
 
 # ===============================================
-# ⚠️ Step 6: Outlier Detection (Optional but Useful)
+# Step 6: Outlier Detection (Optional but Useful)
 # ===============================================
-print("\n📊 Checking for Outliers (using IQR method)...")
+print("\n Checking for Outliers (using IQR method)...")
 for col in num_cols:
     Q1 = df[col].quantile(0.25)
     Q3 = df[col].quantile(0.75)
@@ -92,50 +92,50 @@ for col in num_cols:
     print(f"{col}: {outliers} potential outliers")
 
 # ===============================================
-# 🔠 Step 7: Encode Categorical Variables
+#  Step 7: Encode Categorical Variables
 # ===============================================
 le = LabelEncoder()
 for col in cat_cols:
     df[col] = le.fit_transform(df[col])
 
-print("\n✅ All Categorical Columns Encoded Successfully!")
+print("\n All Categorical Columns Encoded Successfully!")
 
 # ===============================================
 # 📏 Step 8: Feature Scaling
 # ===============================================
 scaler = StandardScaler()
 df[num_cols] = scaler.fit_transform(df[num_cols])
-print("✅ All Numerical Columns Scaled Successfully!")
+print(" All Numerical Columns Scaled Successfully!")
 
 # ===============================================
-# 📈 Step 9: Correlation Heatmap (Quick EDA)
+#  Step 9: Correlation Heatmap (Quick EDA)
 # ===============================================
 plt.figure(figsize=(10,6))
 sns.heatmap(df.corr(), cmap='coolwarm', annot=False)
-plt.title("🔗 Correlation Heatmap")
+plt.title(" Correlation Heatmap")
 plt.show()
 
 # ===============================================
-# 📉 Step 10: Visualize Distributions
+#  Step 10: Visualize Distributions
 # ===============================================
 num_features = df.select_dtypes(include=[np.number]).columns.tolist()
 df[num_features].hist(figsize=(15, 10), bins=20)
-plt.suptitle("📊 Feature Distributions", size=16)
+plt.suptitle(" Feature Distributions", size=16)
 plt.show()
 
 # ===============================================
-# 💾 Step 11: Save the Preprocessed Dataset
+#  Step 11: Save the Preprocessed Dataset
 # ===============================================
 output_file = "preprocessed_dataset.csv"
 df.to_csv(output_file, index=False)
-print(f"\n💾 Preprocessed dataset saved as '{output_file}'")
+print(f"\n Preprocessed dataset saved as '{output_file}'")
 
 # ===============================================
-# ✅ Step 12: Final Verification
+#  Step 12: Final Verification
 # ===============================================
-print("\n📊 Final Dataset Summary:")
+print("\n Final Dataset Summary:")
 print(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
-print("\n✅ Data preprocessing complete. You can now move to EDA or Model Training.")
+print("\n Data preprocessing complete. You can now move to EDA or Model Training.")
 
 from google.colab import files
 files.download("preprocessed_dataset.csv")
@@ -153,34 +153,34 @@ pd.set_option('display.max_columns', None)
 # ===============================================
 # Step 2: Upload Preprocessed Dataset
 # ===============================================
-print("👉 Upload your preprocessed dataset (CSV file)")
+print(" Upload your preprocessed dataset (CSV file)")
 uploaded = files.upload()
 
 for filename in uploaded.keys():
     preprocessed_file = filename
-    print(f"✅ File '{filename}' uploaded successfully!")
+    print(f"File '{filename}' uploaded successfully!")
 
 # ===============================================
 # Step 3: Load Dataset
 # ===============================================
 df = pd.read_csv(preprocessed_file)
 
-print("\n📊 Dataset Overview:")
+print("\n Dataset Overview:")
 print(f"Total Rows: {df.shape[0]}, Columns: {df.shape[1]}")
 display(df.head())
 
-print("\n📋 Dataset Info:")
+print("\n Dataset Info:")
 df.info()
 
-print("\n📈 Summary Statistics (All Numeric Columns):")
+print("\n Summary Statistics (All Numeric Columns):")
 display(df.describe())
 
 # ===============================================
 # Step 4: Missing Values Check
 # ===============================================
 missing = df.isnull().sum()
-print("\n🔍 Missing Values Check:")
-print(missing[missing > 0] if missing.sum() > 0 else "✅ No Missing Values Found")
+print("\n Missing Values Check:")
+print(missing[missing > 0] if missing.sum() > 0 else " No Missing Values Found")
 
 # ===============================================
 # Step 5: Feature Distributions
@@ -201,7 +201,7 @@ for col in numeric_features:
 # ===============================================
 plt.figure(figsize=(10,6))
 sns.heatmap(df.corr(), annot=True, cmap='coolwarm', fmt=".2f")
-plt.title("🔗 Correlation Heatmap")
+plt.title(" Correlation Heatmap")
 plt.show()
 
 # ===============================================
@@ -211,7 +211,7 @@ plt.show()
 subset_features = numeric_features[:6] if len(numeric_features) > 6 else numeric_features
 
 sns.pairplot(df[subset_features], diag_kind='kde', corner=True)
-plt.suptitle("📊 Pairwise Feature Comparisons", y=1.02)
+plt.suptitle(" Pairwise Feature Comparisons", y=1.02)
 plt.show()
 
 # ===============================================
